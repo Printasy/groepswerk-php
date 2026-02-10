@@ -29,6 +29,8 @@ use Admin\Repositories\SuppliersRepository;
 use Admin\Repositories\UsersRepository;
 use Admin\Controllers\ProductsController;
 use Admin\Controllers\SuppliersController;
+use Admin\Controllers\CustomersController;
+use Admin\Repositories\CustomersRepository;
 
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) ?? '/';
 $uri = rtrim($uri, '/') ?: '/';
@@ -142,6 +144,36 @@ $router->get('/suppliers', function (): void {
 
 $router->get('/suppliers/{id}', function (int $id): void {
     (new SuppliersController(SuppliersRepository::make()))->show($id);
+});
+
+/*
+|--------------------------------------------------------------------------
+| Customers routes
+|--------------------------------------------------------------------------
+*/
+
+$router->get('/customers', function (): void {
+    (new CustomersController(CustomersRepository::make()))->index();
+});
+
+$router->get('/customers/create', function (): void {
+    (new CustomersController(CustomersRepository::make()))->create();
+});
+
+$router->post('/customers/store', function (): void {
+    (new CustomersController(CustomersRepository::make()))->store();
+});
+
+$router->get('/customers/{id}/edit', function (int $id): void {
+    (new CustomersController(CustomersRepository::make()))->edit($id);
+});
+
+$router->post('/customers/{id}/update', function (int $id): void {
+    (new CustomersController(CustomersRepository::make()))->update($id);
+});
+
+$router->post('/customers/{id}/delete', function (int $id): void {
+    (new CustomersController(CustomersRepository::make()))->delete($id);
 });
 
 /*
