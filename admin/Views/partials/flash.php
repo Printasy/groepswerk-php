@@ -3,24 +3,35 @@ declare(strict_types=1);
 
 use Admin\Core\Flash;
 
-$success = Flash::get('success');
-$error   = Flash::get('error');
-$warning = Flash::get('warning');
+$success = Flash::get('success'); // string|null
+$error   = Flash::get('error');   // string|null
+$warning = Flash::get('warning'); // array|string|null
 
 $warningList = null;
-if (is_array($warning)) { $warningList = $warning; }
-elseif (is_string($warning) && $warning !== '') { $warningList = [$warning]; }
+if (is_array($warning)) {
+    $warningList = $warning;
+} elseif (is_string($warning) && $warning !== '') {
+    $warningList = [$warning];
+}
 
-$box = static function (string $tone): array {
-  return match ($tone) {
-    'success' => ['bg' => 'bg-emerald-50', 'border' => 'border-emerald-200', 'text' => 'text-emerald-900', 'dot' => 'bg-emerald-500'],
-    'error'   => ['bg' => 'bg-rose-50',    'border' => 'border-rose-200',    'text' => 'text-rose-900',    'dot' => 'bg-rose-500'],
-    default   => ['bg' => 'bg-amber-50',   'border' => 'border-amber-200',   'text' => 'text-amber-950',   'dot' => 'bg-amber-500'],
-  };
-};
+/**
+ * Zelfde idee als in MiniCMS: simpele if/switch i.p.v. match.
+ * @return array{bg:string,border:string,text:string,dot:string}
+ */
+function flashBox(string $tone): array
+{
+    switch ($tone) {
+        case 'success':
+            return ['bg' => 'bg-emerald-50', 'border' => 'border-emerald-200', 'text' => 'text-emerald-900', 'dot' => 'bg-emerald-500'];
+        case 'error':
+            return ['bg' => 'bg-rose-50', 'border' => 'border-rose-200', 'text' => 'text-rose-900', 'dot' => 'bg-rose-500'];
+        default:
+            return ['bg' => 'bg-amber-50', 'border' => 'border-amber-200', 'text' => 'text-amber-950', 'dot' => 'bg-amber-500'];
+    }
+}
 ?>
 
-<?php if (is_string($success) && $success !== ''): $c = $box('success'); ?>
+<?php if (is_string($success) && $success !== ''): $c = flashBox('success'); ?>
   <div class="mx-6 mt-6 rounded-2xl border <?php echo $c['border']; ?> <?php echo $c['bg']; ?> px-4 py-3 <?php echo $c['text']; ?> shadow-sm">
     <div class="flex items-start gap-3">
       <span class="mt-1 h-2.5 w-2.5 rounded-full <?php echo $c['dot']; ?>"></span>
@@ -29,7 +40,7 @@ $box = static function (string $tone): array {
   </div>
 <?php endif; ?>
 
-<?php if (is_string($error) && $error !== ''): $c = $box('error'); ?>
+<?php if (is_string($error) && $error !== ''): $c = flashBox('error'); ?>
   <div class="mx-6 mt-6 rounded-2xl border <?php echo $c['border']; ?> <?php echo $c['bg']; ?> px-4 py-3 <?php echo $c['text']; ?> shadow-sm">
     <div class="flex items-start gap-3">
       <span class="mt-1 h-2.5 w-2.5 rounded-full <?php echo $c['dot']; ?>"></span>
@@ -38,7 +49,7 @@ $box = static function (string $tone): array {
   </div>
 <?php endif; ?>
 
-<?php if (is_array($warningList) && !empty($warningList)): $c = $box('warning'); ?>
+<?php if (is_array($warningList) && !empty($warningList)): $c = flashBox('warning'); ?>
   <div class="mx-6 mt-6 rounded-2xl border <?php echo $c['border']; ?> <?php echo $c['bg']; ?> px-4 py-3 <?php echo $c['text']; ?> shadow-sm">
     <div class="flex items-start gap-3">
       <span class="mt-1 h-2.5 w-2.5 rounded-full <?php echo $c['dot']; ?>"></span>
