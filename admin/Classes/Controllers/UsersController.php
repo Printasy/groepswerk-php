@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Admin\Controllers;
 
+use Admin\Core\Auth;
 use Admin\Core\Csrf;
 use Admin\Core\Flash;
 use Admin\Core\View;
@@ -68,12 +69,32 @@ final class UsersController
     {
         Csrf::verifyOrAbort();
 
+        $existing = $this->repo->find($id);
+        if (!$existing) {
+            Flash::set('error', 'Gebruiker niet gevonden.');
+            header('Location: ' . ADMIN_BASE_PATH . '/users');
+            exit;
+        }
+
         $name = trim((string)($_POST['name'] ?? ''));
         $email = trim((string)($_POST['email'] ?? ''));
         $role = (string)($_POST['role'] ?? 'user');
-        $isActive = isset($_POST['is_active']) ? 1 : 0;
+        $isActive = ((string)($_POST['is_active'] ?? '0') === '1') ? 1 : 0;
 
         $errors = [];
+
+        // Voorkom dat de laatste admin zijn adminrechten/activiteit verliest
+        if (($existing['role'] ?? null) === 'admin') {
+            $adminCount = $this->repo->countAdmins();
+
+            if ($adminCount <= 1 && $role !== 'admin') {
+                $errors[] = 'Je kan de laatste admin niet degraderen naar een gewone gebruiker.';
+            }
+
+            if ($adminCount <= 1 && $isActive === 0) {
+                $errors[] = 'Je kan de laatste admin niet deactiveren.';
+            }
+        }
         if ($name === '') { $errors[] = 'Naam is verplicht.'; }
         if ($email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) { $errors[] = 'Geldig e-mail is verplicht.'; }
         if (!in_array($role, ['admin','user'], true)) { $errors[] = 'Ongeldige rol.'; }
@@ -95,6 +116,13 @@ final class UsersController
     {
         Csrf::verifyOrAbort();
 
+        $user = $this->repo->find($id);
+        if (!$user) {
+            Flash::set('error', 'Gebruiker niet gevonden.');
+            header('Location: ' . ADMIN_BASE_PATH . '/users');
+            exit;
+        }
+
         $password = (string)($_POST['password'] ?? '');
         if (strlen($password) < 6) {
             Flash::set('error', 'Wachtwoord moet minstens 6 karakters zijn.');
@@ -111,7 +139,30 @@ final class UsersController
     public function delete(int $id): void
     {
         Csrf::verifyOrAbort();
+
+        $user = $this->repo->find($id);
+        if (!$user) {
+            Flash::set('error', 'Gebruiker niet gevonden.');
+            header('Location: ' . ADMIN_BASE_PATH . '/users');
+            exit;
+        }
+
+        // Voorkom dat een admin zichzelf verwijdert
+        if (Auth::id() === $id) {
+            Flash::set('error', 'Je kan je eigen account niet verwijderen.');
+            header('Location: ' . ADMIN_BASE_PATH . '/users');
+            exit;
+        }
+
+        // Voorkom dat de laatste admin verwijderd wordt
+        if (($user['role'] ?? null) === 'admin' && $this->repo->countAdmins() <= 1) {
+            Flash::set('error', 'Je kan de laatste admin niet verwijderen.');
+            header('Location: ' . ADMIN_BASE_PATH . '/users');
+            exit;
+        }
+
         $this->repo->delete($id);
+
         Flash::set('success', 'Gebruiker verwijderd.');
         header('Location: ' . ADMIN_BASE_PATH . '/users');
         exit;

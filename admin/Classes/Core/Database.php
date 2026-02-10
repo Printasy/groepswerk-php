@@ -50,7 +50,16 @@ class Database
             );
         } catch (PDOException $e) {
             http_response_code(500);
-            echo $e . '<h1>500 - Database connectie mislukt</h1>';
+
+            // Log details server-side, toon geen gevoelige info aan de gebruiker
+            error_log('[DB] ' . $e->getMessage());
+
+            $debug = filter_var(getenv('APP_DEBUG') ?: '0', FILTER_VALIDATE_BOOLEAN);
+            if ($debug) {
+                echo '<pre>' . htmlspecialchars((string)$e, ENT_QUOTES, 'UTF-8') . '</pre>';
+            }
+
+            echo '<h1>500 - Database connectie mislukt</h1>';
             exit;
         }
 

@@ -90,6 +90,14 @@ final class UsersRepository
         ]);
     }
 
+    public function countAdmins(): int
+    {
+        return (int)Database::getConnection()
+            ->query("SELECT COUNT(*) FROM users WHERE role = 'admin'")
+            ->fetchColumn();
+    }
+
+
     public function delete(int $id): void
     {
         $stmt = Database::getConnection()->prepare('DELETE FROM users WHERE id=:id');

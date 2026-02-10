@@ -100,4 +100,11 @@ final class ProductsRepository
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute(['id' => $id]);
     }
+
+    public function count(): int
+    {
+        $stmt = $this->pdo->query("SELECT COUNT(*) FROM products");
+        return (int)$stmt->fetchColumn();
+    }
+
 }
