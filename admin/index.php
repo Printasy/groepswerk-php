@@ -9,7 +9,9 @@ require __DIR__ . '/autoload.php';
 use Admin\Controllers\ErrorController;
 use Admin\Core\Router;
 use Admin\Repositories\ProductsRepository;
+use Admin\Repositories\SuppliersRepository;
 use Admin\Controllers\ProductsController;
+use Admin\Controllers\SuppliersController;
 
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) ?? '/';
 $uri = rtrim($uri, '/') ?: '/';
@@ -22,46 +24,57 @@ $router->setNotFoundHandler(function (string $requestedUri) use ($errorControlle
     $errorController->notFound($requestedUri);
 });
 
+$router->get('/', function(): void{
+   header('Location: /products');
+   exit;
+});
 /*
 |--------------------------------------------------------------------------
 | Products routes
 |--------------------------------------------------------------------------
 */
 
-// overzicht
 $router->get('/products', function (): void {
-    (new ProductsController(ProductsRepository::make()))->index();
+    (new ProductsController(ProductsRepository::make(), SuppliersRepository::make()))->index();
 });
 
-// create form
 $router->get('/products/create', function (): void {
-    (new ProductsController(ProductsRepository::make()))->create();
+    (new ProductsController(ProductsRepository::make(), SuppliersRepository::make()))->create();
 });
 
-// store (POST)
 $router->post('/products/store', function (): void {
-    (new ProductsController(ProductsRepository::make()))->store();
+    (new ProductsController(ProductsRepository::make(), SuppliersRepository::make()))->store();
 });
 
-// show single product
 $router->get('/products/{id}', function (int $id): void {
-    (new ProductsController(ProductsRepository::make()))->show($id);
+    (new ProductsController(ProductsRepository::make(), SuppliersRepository::make()))->show($id);
 });
 
-// edit form
 $router->get('/products/{id}/edit', function (int $id): void {
-    (new ProductsController(ProductsRepository::make()))->edit($id);
+    (new ProductsController(ProductsRepository::make(), SuppliersRepository::make()))->edit($id);
 });
 
-// update (POST)
 $router->post('/products/{id}/update', function (int $id): void {
-    (new ProductsController(ProductsRepository::make()))->update($id);
+    (new ProductsController(ProductsRepository::make(), SuppliersRepository::make()))->update($id);
 });
 
-// delete (POST)
 $router->post('/products/{id}/delete', function (int $id): void {
-    (new ProductsController(ProductsRepository::make()))->delete($id);
+    (new ProductsController(ProductsRepository::make(), SuppliersRepository::make()))->delete($id);
+});
+
+/*
+|--------------------------------------------------------------------------
+| Suppliers routes
+|--------------------------------------------------------------------------
+*/
+
+$router->get('/suppliers', function (): void {
+    (new SuppliersController(SuppliersRepository::make()))->index();
+});
+
+$router->get('/suppliers/{id}', function (int $id): void {
+    (new SuppliersController(SuppliersRepository::make()))->show($id);
 });
 
 // dispatch
-$router->dispatch($method, $uri);
+$router->dispatch($uri, $method);

@@ -5,6 +5,7 @@ namespace Admin\Controllers;
 
 use Admin\Core\View;
 use Admin\Repositories\ProductsRepository;
+use Admin\Repositories\SuppliersRepository;
 
 final class ProductsController
 {

@@ -6,9 +6,13 @@ declare(strict_types=1);
     <h2 class="text-xl font-bold mb-6">Mini-ERP</h2>
 
     <nav class="space-y-2 text-sm">
-        <a href="/"
+        <a href="/products"
            class='block rounded px-3 py-2 text-slate-300 hover:bg-slate-800 hover:text-white'>
-            Dashboard
+            Producten
+        </a>
+        <a href="/suppliers"
+           class='block rounded px-3 py-2 text-slate-300 hover:bg-slate-800 hover:text-white'>
+            Leveranciers
         </a>
     </nav>
 </aside>
