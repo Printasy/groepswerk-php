@@ -10,10 +10,12 @@ class View
         extract($data, EXTR_SKIP);
 
         if (!isset($title) || $title === '') {
-            $title = 'Groepswerk';
+            $title = 'Mini-ERP';
         }
 
-        $viewPath = __DIR__ . '/../Views/' . ltrim($view, '/');
+        $baseViewPath = __DIR__ . '/../../Views/';
+
+        $viewPath = $baseViewPath . ltrim($view, '/');
 
         if (!file_exists($viewPath)) {
             http_response_code(500);
@@ -21,18 +23,16 @@ class View
             return;
         }
 
-        require __DIR__ . '/../Views/includes/header.php';
-        require __DIR__ . '/../Views/includes/sidebar.php';
+        require $baseViewPath . 'includes/header.php';
+        require $baseViewPath . 'includes/sidebar.php';
 
         echo '<main class="flex-1">';
-        require __DIR__ . '/../Views/includes/topbar.php';
-        // require __DIR__ . '/../Views/views/partials/flash.php';
-
+        require $baseViewPath . 'includes/topbar.php';
 
         require $viewPath;
 
         echo '</main>';
 
-        require __DIR__ . '/../Views/includes/footer.php';
+        require $baseViewPath . 'includes/footer.php';
     }
 }
