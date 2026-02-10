@@ -44,4 +44,11 @@ final class SuppliersRepository
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         return $row !== false ? $row : null;
     }
+
+    public function count(): int
+    {
+        $stmt = $this->pdo->query("SELECT COUNT(*) FROM suppliers");
+        return (int)$stmt->fetchColumn();
+    }
+
 }
