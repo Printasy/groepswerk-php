@@ -163,6 +163,10 @@ $router->get('/customers/create', function (): void {
 $router->post('/customers/store', function (): void {
     (new CustomersController(CustomersRepository::make()))->store();
 });
+$router->get('/customers/{id}', function (int $id): void {
+    (new CustomersController(CustomersRepository::make()))->show($id);
+});
+
 
 $router->get('/customers/{id}/edit', function (int $id): void {
     (new CustomersController(CustomersRepository::make()))->edit($id);

@@ -16,8 +16,8 @@ declare(strict_types=1);
         <p class="mb-4">Aangemaakt op: <?php echo htmlspecialchars((string)$product['created_at'], ENT_QUOTES); ?></p>
 
         <div class="flex gap-10 mt-6">
-            <a class="underline" href="/products">Terug naar overzicht</a>
-            <a class="underline text-red-600" href="/products/<?php echo (int)$product['id']; ?>/delete">
+            <a class="underline" href="<?= ADMIN_BASE_PATH; ?>/products">Terug naar overzicht</a>
+            <a class="underline text-red-600" href="<?= ADMIN_BASE_PATH; ?>/products/<?php echo (int)$product['id']; ?>/delete">
                 Verwijder product
             </a>
         </div>

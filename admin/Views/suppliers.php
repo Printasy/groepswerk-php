@@ -20,7 +20,7 @@ declare(strict_types=1);
             <?php foreach ($suppliers as $s): ?>
                 <tr class="border-b">
                     <td class="py-2">
-                        <a class="underline" href="/suppliers/<?= (int)$s['id'] ?>">
+                        <a class="underline" href="<?= ADMIN_BASE_PATH; ?>/suppliers/<?= (int)$s['id'] ?>">
                             <?= htmlspecialchars((string)$s['name'], ENT_QUOTES) ?>
                         </a>
                     </td>

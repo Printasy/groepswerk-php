@@ -25,7 +25,7 @@ final class SuppliersController
         $supplier = $this->suppliers->find($id);
 
         if (!$supplier) {
-            header('Location: /suppliers');
+            header('Location: ' . ADMIN_BASE_PATH . '/suppliers');
             exit;
         }
 

@@ -8,7 +8,7 @@ declare(strict_types=1);
         <div class="flex items-center justify-between mb-4">
             <h2 class="text-xl font-bold">Producten overzicht</h2>
 
-            <a class="underline" href="/products/create">
+            <a class="underline" href="<?= ADMIN_BASE_PATH; ?>/products/create">
                 + Nieuw product
             </a>
         </div>
@@ -29,7 +29,7 @@ declare(strict_types=1);
             <?php foreach ($products as $product): ?>
                 <tr class="border-b">
                     <td class="py-2">
-                        <a class="underline" href="/products/<?php echo (int)$product['id']; ?>">
+                        <a class="underline" href="<?= ADMIN_BASE_PATH; ?>/products/<?php echo (int)$product['id']; ?>">
                             <?php echo htmlspecialchars((string)$product['name'], ENT_QUOTES); ?>
                         </a>
                     </td>
@@ -38,10 +38,11 @@ declare(strict_types=1);
                     <td><?php echo htmlspecialchars((string)$product['inkoopprijs'], ENT_QUOTES); ?></td>
                     <td><?php echo htmlspecialchars((string)$product['leverancier'], ENT_QUOTES); ?></td>
                     <td class="text-right space-x-3">
-                        <a class="underline" href="/products/<?php echo (int)$product['id']; ?>/edit">
+                        <a class="underline" href="<?= ADMIN_BASE_PATH; ?>/products/<?php echo (int)$product['id']; ?>/edit">
                             Bewerken
                         </a>
-                        <form class="inline" method="post" action="/products/<?php echo (int)$product['id']; ?>/delete">
+                        <form class="inline" method="post" action="<?= ADMIN_BASE_PATH; ?>
+            <input type="hidden" name="_token" value="<?= \Admin\Core\Csrf::token(); ?>">/products/<?php echo (int)$product['id']; ?>/delete">
                             <button class="underline text-red-600" type="submit">Verwijder</button>
                         </form>
                     </td>
