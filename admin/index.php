@@ -30,6 +30,7 @@ use Admin\Repositories\UsersRepository;
 use Admin\Controllers\ProductsController;
 use Admin\Controllers\SuppliersController;
 use Admin\Controllers\CustomersController;
+use Admin\Controllers\DashboardController;
 use Admin\Repositories\CustomersRepository;
 
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) ?? '/';
@@ -85,8 +86,7 @@ $router->post('/logout', function (): void {
 */
 
 $router->get('/dashboard', function (): void {
-    header('Location: ' . ADMIN_BASE_PATH . '/products');
-    exit;
+    (new DashboardController())->index();
 });
 
 // -----------------------------------------------------------------------------

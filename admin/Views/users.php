@@ -52,13 +52,12 @@ declare(strict_types=1);
   </td>
   <td class="px-6 py-3">
     <div class="flex items-center justify-end gap-2">
-      <a class="inline-flex items-center rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-800 hover:bg-slate-50"
-         href="<?php echo ADMIN_BASE_PATH; ?>/users/<?php echo (int)$u['id']; ?>/edit">Bewerk</a>
+      <a class="underline" href="<?php echo ADMIN_BASE_PATH; ?>/users/<?php echo (int)$u['id']; ?>/edit">Bewerken</a>
 
-      <form method="post" action="<?php echo ADMIN_BASE_PATH; ?>/users/<?php echo (int)$u['id']; ?>/delete"
+      <form class="inline" method="post" action="<?php echo ADMIN_BASE_PATH; ?>/users/<?php echo (int)$u['id']; ?>/delete"
             onsubmit="return confirm('Zeker verwijderen? Dit is een harde delete.');">
         <input type="hidden" name="_token" value="<?php echo htmlspecialchars(\Admin\Core\Csrf::token(), ENT_QUOTES); ?>">
-        <button class="inline-flex items-center rounded-xl bg-rose-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-rose-500">Delete</button>
+        <button class="underline text-red-600">Verwijder</button>
       </form>
     </div>
   </td>

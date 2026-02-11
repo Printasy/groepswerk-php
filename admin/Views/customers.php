@@ -37,13 +37,13 @@ declare(strict_types=1);
               <td class="px-6 py-3 text-slate-600"><?php echo htmlspecialchars((string)($c['company'] ?? ''), ENT_QUOTES); ?></td>
               <td class="px-6 py-3 text-slate-600"><?php echo htmlspecialchars((string)($c['address'] ?? ''), ENT_QUOTES); ?></td>
               <td class="px-6 py-3">
-                <div class="flex items-center justify-end gap-2">
-                  <a class="inline-flex items-center rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-800 hover:bg-slate-50"
-                     href="<?php echo ADMIN_BASE_PATH; ?>/customers/<?php echo (int)$c['id']; ?>/edit">Bewerk</a>
+                <div class="flex items-center justify-end gap-3">
+                  <a class="underline text-slate-700 hover:text-slate-900"
+                     href="<?php echo ADMIN_BASE_PATH; ?>/customers/<?php echo (int)$c['id']; ?>/edit">Bewerken</a>
                   <form method="post" action="<?php echo ADMIN_BASE_PATH; ?>/customers/<?php echo (int)$c['id']; ?>/delete"
                         onsubmit="return confirm('Zeker verwijderen? Dit is een harde delete.');">
                     <input type="hidden" name="_token" value="<?php echo htmlspecialchars(\Admin\Core\Csrf::token(), ENT_QUOTES); ?>">
-                    <button class="inline-flex items-center rounded-xl bg-rose-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-rose-500">Delete</button>
+                    <button type="submit" class="underline text-rose-600 hover:text-rose-700">Verwijder</button>
                   </form>
                 </div>
               </td>

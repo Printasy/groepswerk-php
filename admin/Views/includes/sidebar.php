@@ -6,6 +6,10 @@ declare(strict_types=1);
     <h2 class="text-xl font-bold mb-6">Mini-ERP</h2>
 
     <nav class="space-y-2 text-sm">
+        <a href="<?php echo ADMIN_BASE_PATH; ?>/dashboard"
+           class='block rounded px-3 py-2 text-slate-300 hover:bg-slate-800 hover:text-white'>
+            Dashboard
+        </a>
         <a href="<?php echo ADMIN_BASE_PATH; ?>/products"
            class='block rounded px-3 py-2 text-slate-300 hover:bg-slate-800 hover:text-white'>
             Producten
@@ -17,6 +21,10 @@ declare(strict_types=1);
         <a href="<?php echo ADMIN_BASE_PATH; ?>/customers"
            class='block rounded px-3 py-2 text-slate-300 hover:bg-slate-800 hover:text-white'>
             Klanten
+        </a>
+        <a href="<?php echo ADMIN_BASE_PATH; ?>/users"
+           class='block rounded px-3 py-2 text-slate-300 hover:bg-slate-800 hover:text-white'>
+            Gebruikers
         </a>
     </nav>
 </aside>
