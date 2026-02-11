@@ -13,11 +13,16 @@
 - De gebruiker wordt succesvol geauthenticeerd.
 - De gebruiker wordt doorgestuurd naar het dashboard/homepagina.
 - Er verschijnt geen foutmelding.
-- (Optioneel) De sessie/cookie wordt gezet en de gebruiker blijft ingelogd bij navigatie.
+
+**Effectieve uitkomst**
+- De gebruiker wordt succesvol geauthenticeerd.
+- De gebruiker wordt doorgestuurd naar het dashboard/homepagina.
+- Er verschijnt geen foutmelding.
+
 
 ---
 
-## TC-02 — Login (negatief): fout wachtwoord
+## TC-02 — Login (positief): fout wachtwoord
 **Doel:** Verifiëren dat login wordt geweigerd bij een incorrect wachtwoord.
 
 **Stappen**
@@ -27,6 +32,12 @@
 4. Klik op **Login**.
 
 **Verwachte uitkomst**
+- De gebruiker wordt **niet** ingelogd.
+- Er verschijnt een duidelijke foutmelding (bv. “Onjuiste gebruikersnaam of wachtwoord”).
+- De gebruiker blijft op de loginpagina.
+- Er wordt **geen** sessie aangemaakt.
+
+**Effectieve uitkomst**
 - De gebruiker wordt **niet** ingelogd.
 - Er verschijnt een duidelijke foutmelding (bv. “Onjuiste gebruikersnaam of wachtwoord”).
 - De gebruiker blijft op de loginpagina.
@@ -53,6 +64,11 @@
 - De user kan (indien van toepassing) inloggen met de aangemaakte credentials.
 - Validatie werkt: alle verplichte velden zijn ingevuld en correct opgeslagen.
 
+
+**Effectieve uitkomst**
+- De nieuwe user wordt aangemaakt en verschijnt in de users-lijst.
+- De user kan (indien van toepassing) inloggen met de aangemaakte credentials.
+- Validatie werkt: alle verplichte velden zijn ingevuld en correct opgeslagen.
 ---
 
 ## TC-04 — Klanten (negatief): klant aanmaken met ongeldig e-mailadres
@@ -64,6 +80,11 @@
 3. Klik op **Nieuwe klant** / **Add klant**.
 4. Vul geldige klantgegevens in, maar gebruik een **ongeldig e-mailadres** (bv. `jan@@printasy` of zonder `@`).
 5. Klik op **Opslaan**.
+
+**Verwachte uitkomst**
+- De klant wordt **niet** aangemaakt.
+- Er verschijnt een validatiefout bij het e-mailveld (bv. “Voer een geldig e-mailadres in”).
+- De ingevoerde (geldige) velden blijven behouden zodat de gebruiker enkel het e-mailveld moet corrigeren.
 
 **Verwachte uitkomst**
 - De klant wordt **niet** aangemaakt.
