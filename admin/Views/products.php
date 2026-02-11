@@ -41,8 +41,8 @@ declare(strict_types=1);
                         <a class="underline" href="<?= ADMIN_BASE_PATH; ?>/products/<?php echo (int)$product['id']; ?>/edit">
                             Bewerken
                         </a>
-                        <form class="inline" method="post" action="<?= ADMIN_BASE_PATH; ?>
-            <input type="hidden" name="_token" value="<?= \Admin\Core\Csrf::token(); ?>">/products/<?php echo (int)$product['id']; ?>/delete">
+                        <form class="inline" method="post" action="<?= ADMIN_BASE_PATH; ?>/products/<?php echo (int)$product['id']; ?>/delete">
+                            <input type="hidden" name="_token" value="<?= \Admin\Core\Csrf::token(); ?>">
                             <button class="underline text-red-600" type="submit">Verwijder</button>
                         </form>
                     </td>
