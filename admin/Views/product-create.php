@@ -7,7 +7,7 @@ declare(strict_types=1);
     <div class="bg-white p-6 rounded shadow max-w-2xl">
         <h1 class="text-2xl font-bold mb-4"><?= htmlspecialchars((string)($title ?? 'Nieuw product'), ENT_QUOTES) ?></h1>
 
-        <form method="post" action="<?= ADMIN_BASE_PATH; ?><form action="/products/store" method="POST" class="space-y-4">
+        <form method="post" action="<?= ADMIN_BASE_PATH; ?>/products/store" class="space-y-4">
             <input type="hidden" name="_token" value="<?= \Admin\Core\Csrf::token(); ?>">
             <form action="/products/store" method="POST" class="space-y-4">
             <div>
