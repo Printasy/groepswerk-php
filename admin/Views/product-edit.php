@@ -12,7 +12,6 @@ $suppliers = $suppliers ?? [];
 
          <form method="post" action="<?= ADMIN_BASE_PATH; ?>/products/<?= (int)($product['id'] ?? 0) ?>/update" class="space-y-4">
             <input type="hidden" name="_token" value="<?= \Admin\Core\Csrf::token(); ?>">
-            /products/<?= (int)($product['id'] ?? 0) ?>/update" class="space-y-4">
             <div>
                 <label class="block text-sm font-semibold mb-1">Naam</label>
                 <input class="w-full border rounded px-3 py-2"
