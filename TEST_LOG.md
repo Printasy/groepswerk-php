@@ -70,7 +70,7 @@
 - Er verschijnt een validatiefout bij het e-mailveld (bv. “Voer een geldig e-mailadres in”).
 - De ingevoerde (geldige) velden blijven behouden zodat de gebruiker enkel het e-mailveld moet corrigeren.
 
----
+g---
 
 ## TC-05 — Producten (positief): nieuw product toevoegen
 **Doel:** Verifiëren dat een gebruiker een nieuw product correct kan aanmaken.
