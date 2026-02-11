@@ -10,7 +10,8 @@ $suppliers = $suppliers ?? [];
     <div class="bg-white p-6 rounded shadow max-w-2xl">
         <h1 class="text-2xl font-bold mb-4">Product bewerken</h1>
 
-         <form method="post" action="/products/<?= (int)($product['id'] ?? 0) ?>/update" class="space-y-4">
+         <form method="post" action="<?= ADMIN_BASE_PATH; ?>
+            <input type="hidden" name="_token" value="<?= \Admin\Core\Csrf::token(); ?>">/products/<?= (int)($product['id'] ?? 0) ?>/update" class="space-y-4">
             <div>
                 <label class="block text-sm font-semibold mb-1">Naam</label>
                 <input class="w-full border rounded px-3 py-2"
@@ -62,7 +63,7 @@ $suppliers = $suppliers ?? [];
                 <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700" type="submit">
                     Opslaan
                 </button>
-                <a class="px-4 py-2 rounded border" href="/products">Annuleren</a>
+                <a class="px-4 py-2 rounded border" href="<?= ADMIN_BASE_PATH; ?>/products">Annuleren</a>
             </div>
         </form>
     </div>

@@ -17,7 +17,7 @@ declare(strict_types=1);
         <?php endif; ?>
 
         <div class="flex gap-4">
-            <a class="underline" href="/">Terug naar dashboard</a>
+            <a class="underline" href="<?= ADMIN_BASE_PATH; ?>/">Terug naar dashboard</a>
         </div>
     </div>
 </section>

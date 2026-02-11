@@ -15,6 +15,6 @@ declare(strict_types=1);
             <?= nl2br(htmlspecialchars((string)$supplier['address'], ENT_QUOTES)) ?>
         </p>
 
-        <a class="underline" href="/suppliers">← Terug naar overzicht</a>
+        <a class="underline" href="<?= ADMIN_BASE_PATH; ?>/suppliers">← Terug naar overzicht</a>
     </div>
 </section>

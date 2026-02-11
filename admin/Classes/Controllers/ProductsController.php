@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Admin\Controllers;
 
 use Admin\Core\View;
+use Admin\Core\Csrf;
 use Admin\Repositories\ProductsRepository;
 use Admin\Repositories\SuppliersRepository;
 
@@ -31,7 +32,7 @@ final class ProductsController
         $product = $this->products->find($id);
 
         if (!$product) {
-            header('Location: /products');
+            header('Location: ' . ADMIN_BASE_PATH . '/products');
             exit;
         }
 
@@ -59,6 +60,8 @@ final class ProductsController
 
     public function store(): void
     {
+        Csrf::verifyOrAbort();
+
         $name = trim((string)($_POST['name'] ?? ''));
         $sku = trim((string)($_POST['sku'] ?? ''));
         $verkoopprijs = trim((string)($_POST['verkoopprijs'] ?? ''));
@@ -72,6 +75,9 @@ final class ProductsController
         if ($verkoopprijs === '') { $errors[] = 'Verkoopprijs is verplicht.'; }
         if ($inkoopprijs === '') { $errors[] = 'Inkoopprijs is verplicht.'; }
         if ($supplierId <= 0) { $errors[] = 'Kies een leverancier.'; }
+
+        if ($verkoopprijs !== '' && !is_numeric($verkoopprijs)) { $errors[] = 'Verkoopprijs moet een getal zijn.'; }
+        if ($inkoopprijs !== '' && !is_numeric($inkoopprijs)) { $errors[] = 'Inkoopprijs moet een getal zijn.'; }
 
         if (!empty($errors)) {
             View::render('product-create.php', [
@@ -89,15 +95,32 @@ final class ProductsController
             return;
         }
 
-        $this->products->create(
-            $name,
-            $sku,
-            $verkoopprijs,
-            $inkoopprijs,
-            $supplierId
-        );
+        try {
+            $this->products->create(
+                $name,
+                $sku,
+                $verkoopprijs,
+                $inkoopprijs,
+                $supplierId
+            );
+        } catch (\PDOException $e) {
+            $msg = str_contains($e->getMessage(), 'sku') ? 'SKU bestaat al. Kies een unieke SKU.' : 'Opslaan mislukt.';
+            View::render('product-create.php', [
+                'title' => 'Nieuw product',
+                'suppliers' => $this->suppliers->getAll(),
+                'errors' => [$msg],
+                'old' => [
+                    'name' => $name,
+                    'sku' => $sku,
+                    'verkoopprijs' => $verkoopprijs,
+                    'inkoopprijs' => $inkoopprijs,
+                    'supplier_id' => (string)$supplierId,
+                ],
+            ]);
+            return;
+        }
 
-        header('Location: /admin/users');
+        header('Location: ' . ADMIN_BASE_PATH . '/products');
         exit;
     }
 
@@ -106,7 +129,7 @@ final class ProductsController
         $product = $this->products->find($id);
 
         if (!$product) {
-            header('Location: /products');
+            header('Location: ' . ADMIN_BASE_PATH . '/products');
             exit;
         }
 
@@ -120,6 +143,8 @@ final class ProductsController
 
     public function update(int $id): void
     {
+        Csrf::verifyOrAbort();
+
         $name = trim($_POST['name'] ?? '');
         $sku = trim($_POST['sku'] ?? '');
         $verkoopprijs = trim($_POST['verkoopprijs'] ?? '');
@@ -131,6 +156,8 @@ final class ProductsController
         if ($name === '') $errors[] = 'Naam is verplicht.';
         if ($sku === '') $errors[] = 'SKU is verplicht.';
         if ($supplierId <= 0) $errors[] = 'Kies een leverancier.';
+        if ($verkoopprijs !== '' && !is_numeric($verkoopprijs)) $errors[] = 'Verkoopprijs moet een getal zijn.';
+        if ($inkoopprijs !== '' && !is_numeric($inkoopprijs)) $errors[] = 'Inkoopprijs moet een getal zijn.';
 
         if ($errors) {
             View::render('product-edit.php', [
@@ -142,30 +169,43 @@ final class ProductsController
             return;
         }
 
-        $this->products->update(
-            $id,
-            $name,
-            $sku,
-            $verkoopprijs,
-            $inkoopprijs,
-            $supplierId
-        );
+        try {
+            $this->products->update(
+                $id,
+                $name,
+                $sku,
+                $verkoopprijs,
+                $inkoopprijs,
+                $supplierId
+            );
+        } catch (\PDOException $e) {
+            $msg = str_contains($e->getMessage(), 'sku') ? 'SKU bestaat al. Kies een unieke SKU.' : 'Opslaan mislukt.';
+            View::render('product-edit.php', [
+                'title' => 'Product bewerken',
+                'product' => $this->products->find($id),
+                'suppliers' => $this->suppliers->getAll(),
+                'errors' => [$msg],
+            ]);
+            return;
+        }
 
-        header('Location: /products/' . $id);
+        header('Location: ' . ADMIN_BASE_PATH . '/products/' . $id);
         exit;
     }
 
     public function delete(int $id): void
     {
+        Csrf::verifyOrAbort();
+
         $product = $this->products->find($id);
         if (!$product) {
-            header('Location: /products');
+            header('Location: ' . ADMIN_BASE_PATH . '/products');
             exit;
         }
 
         $this->products->delete($id);
 
-        header('Location: /products');
+        header('Location: ' . ADMIN_BASE_PATH . '/products');
         exit;
     }
 }

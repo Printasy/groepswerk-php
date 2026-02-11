@@ -21,7 +21,7 @@ final class ProductsRepository
     {
         $sql = "
             SELECT p.id, p.name, p.sku, p.verkoopprijs, p.inkoopprijs, s.name as leverancier
-            FROM products p JOIN suppliers s on s.id = p.supplier_id 
+            FROM products p LEFT JOIN suppliers s on s.id = p.supplier_id 
             ORDER BY p.id DESC";
 
         $stmt = $this->pdo->query($sql);
@@ -55,8 +55,8 @@ final class ProductsRepository
 
     public function create( string $name, string $sku, string $verkoopprijs, string $inkoopprijs, int $supplierId): void {
         $sql = "
-            INSERT INTO products (name, sku, verkoopprijs, inkoopprijs, supplier_id, created_at)
-            VALUES (:name, :sku, :verkoopprijs, :inkoopprijs, :supplier_id, NOW())
+            INSERT INTO products (name, sku, verkoopprijs, inkoopprijs, supplier_id, created_at, updated_at)
+            VALUES (:name, :sku, :verkoopprijs, :inkoopprijs, :supplier_id, NOW(), NOW())
         ";
 
         $stmt = $this->pdo->prepare($sql);

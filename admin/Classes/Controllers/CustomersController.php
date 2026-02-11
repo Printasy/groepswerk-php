@@ -20,6 +20,23 @@ final class CustomersController
         ]);
     }
 
+
+    public function show(int $id): void
+    {
+        $customer = $this->repo->find($id);
+
+        if (!$customer) {
+            Flash::set('error', 'Klant niet gevonden.');
+            header('Location: ' . ADMIN_BASE_PATH . '/customers');
+            exit;
+        }
+
+        View::render('customer-view.php', [
+            'title' => 'Klant',
+            'customer' => $customer,
+        ]);
+    }
+
     public function create(): void
     {
         View::render('customer-create.php', ['title' => 'Klant toevoegen']);
