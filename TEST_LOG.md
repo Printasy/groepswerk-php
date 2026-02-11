@@ -42,10 +42,10 @@
 2. Ga naar **Users** (overzicht).
 3. Klik op **Nieuwe user** / **Add user**.
 4. Vul geldige gegevens in:
-    - Naam
-    - E-mail (uniek)
-    - Rol/rechten (indien van toepassing)
-    - Wachtwoord (volgens policy)
+   - Naam
+   - E-mail (uniek)
+   - Rol/rechten (indien van toepassing)
+   - Wachtwoord (volgens policy)
 5. Klik op **Opslaan**.
 
 **Verwachte uitkomst**
@@ -88,6 +88,9 @@
 - Het product wordt correct opgeslagen in de database.
 - Er verschijnt geen foutmelding.
 
+**Effectieve uitkomst**
+- Er is in de database een nieuw product bij gekomen.
+
 ---
 
 ## TC-06 — Producten (positief): product bekijken
@@ -102,6 +105,9 @@
 - De detailpagina van het product wordt geopend.
 - Alle opgeslagen productinformatie wordt correct weergegeven.
 - De weergegeven gegevens komen overeen met de database.
+
+**Effectieve uitkomst**
+- Je kan het effectief zien op je scherm.
 
 ---
 
@@ -118,6 +124,9 @@
 - Het product wordt verwijderd uit de database.
 - Het product is niet langer toegankelijk via directe URL.
 - Er verschijnt eventueel een bevestigingsmelding (bv. “Product succesvol verwijderd”).
+
+**Effectieve uitkomst**
+- Het product is effectief verwijderd uit de database.
 
 ---
 
@@ -136,3 +145,6 @@
 - Het product toont de bijgewerkte gegevens in het overzicht en op de detailpagina.
 - De wijzigingen zijn correct doorgevoerd in de database.
 - Er verschijnt geen foutmelding bij geldige invoer.
+
+**Effectieve uitkomst**
+- De wijziging is succesvol gebeurd en is te zien op de database.
