@@ -14,8 +14,9 @@ declare(strict_types=1);
             <strong><?= htmlspecialchars((string)$product['name'], ENT_QUOTES) ?></strong>
         </p>
 
-        <form method="post" action="<?= ADMIN_BASE_PATH; ?>
-            <input type="hidden" name="_token" value="<?= \Admin\Core\Csrf::token(); ?>">/products/<?= (int)$product['id']; ?>/delete">
+        <form method="post" action="<?= ADMIN_BASE_PATH; ?>/products/<?= (int)$product['id']; ?>/delete">
+            <input type="hidden" name="_token" value="<?= \Admin\Core\Csrf::token(); ?>">
+            /products/<?= (int)$product['id']; ?>/delete">
             <div class="flex gap-4">
                 <button class="border px-4 py-2 text-red-600" type="submit">Ja, verwijder</button>
                 <a class="underline" href="<?= ADMIN_BASE_PATH; ?>/products">Annuleren</a>
