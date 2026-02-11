@@ -34,10 +34,10 @@ use Admin\Core\Csrf;
         </form>
 
         <div class="mt-4 text-xs text-slate-500">
-          <p>Tip: maak eerst tabellen + admin aan via:</p>
+          <p>inloggen met  :</p>
           <div class="mt-2 space-y-1">
-            <div><code class="rounded bg-slate-100 px-2 py-1">php admin/tools/create_tables.php</code></div>
-            <div><code class="rounded bg-slate-100 px-2 py-1">php admin/tools/make_user.php</code></div>
+            <div><code class="rounded bg-slate-100 px-2 py-1">email : admin@erpapp.com</code></div>
+            <div><code class="rounded bg-slate-100 px-2 py-1">paswoord: admin1234</code></div>
           </div>
         </div>
       </div>

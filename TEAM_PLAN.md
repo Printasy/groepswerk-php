@@ -11,6 +11,9 @@ De applicatie is een eenvoudige ERP-webapp waarmee een bedrijf basisbeheer kan u
 
 Daarnaast bevat de applicatie ook een dashboard en login/authenticatie.
 
+De app werd bewust klein en eenvoudig gehouden ivm de opgave en het korte tijdsbestek voor de realisatie. 
+Zo werd geen edit & delete voorzien voor leveranciers; en werd het adres in 1 veld gestopt.
+Ook wordt niet getest indien klanten reeds bestaan bij de aanmaak
 ---
 
 ## 2. Entiteiten (minstens 3)

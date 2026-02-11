@@ -29,6 +29,8 @@ class View
         echo '<main class="flex-1">';
         require $baseViewPath . 'includes/topbar.php';
 
+        require $baseViewPath . 'partials/flash.php';
+
         require $viewPath;
 
         echo '</main>';
